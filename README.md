@@ -4,13 +4,13 @@
 
 This project is intended to provide a base resource that allows a GIS  server administrator to perform batch tasks using Python and ArcGIS for Server's web-based Admin API. The framework currently includes the following functions. Samples are provided that demonstrate usage of these samples:
 
-* **defineEndpoints** - defines ArcGIS Server’s web-based endpoints including REST, Admin API, and Token URL.
-* **getToken** - retrieves a short-lived token from the Token URL.
-* **getServiceAdminEndpoints** - Provides a list of administrative service URLs that can be used by other functions in the framework.
-* **updateMinMaxInstance** - edits input service(s) to modify the Minimum and Maximum number of instances per service parameters.
-* **StartStopDelete** - Starts, Stops, or Deletes service(s).
-* **updateTimouts** - Updates Maximum Wait Time, Maximum Startup Time, Maximum Idle Time, and Maximum Usage time parameters for service(s).
-* **backupSite** - Performs a backup of the ArcGIS Server site (ArcGIS for Server 10.2 or higher required).
+* [defineEndpoints](https://github.com/djarrard/Python-AGS-Admin/blob/master/FUNCTION%20DOCUMENTATION.md#define-endpoints) - defines ArcGIS Serverâ€™s web-based endpoints including REST, Admin API, and Token URL.
+* [getToken](https://github.com/djarrard/Python-AGS-Admin/blob/master/FUNCTION%20DOCUMENTATION.md#get-token) - retrieves a short-lived token from the Token URL.
+* [getServiceAdminEndpoints](https://github.com/djarrard/Python-AGS-Admin/blob/master/FUNCTION%20DOCUMENTATION.md#get-service-administrative-endpoints) - Provides a list of administrative service URLs that can be used by other functions in the framework.
+* [updateMinMaxInstance](https://github.com/djarrard/Python-AGS-Admin/blob/master/FUNCTION%20DOCUMENTATION.md#update-minimum-and-maximum-instances-per-node) - edits input service(s) to modify the Minimum and Maximum number of instances per service parameters.
+* [StartStopDelete](https://github.com/djarrard/Python-AGS-Admin/blob/master/FUNCTION%20DOCUMENTATION.md#start-stop-and-delete-services) - Starts, Stops, or Deletes service(s).
+* [updateTimouts](https://github.com/djarrard/Python-AGS-Admin/blob/master/FUNCTION%20DOCUMENTATION.md#update-timeouts) - Updates Maximum Wait Time, Maximum Startup Time, Maximum Idle Time, and Maximum Usage time parameters for service(s).
+* [backupSite](https://github.com/djarrard/Python-AGS-Admin/blob/master/FUNCTION%20DOCUMENTATION.md#backup-site-requires-arcgis-for-server-102-and-higher) - Performs a backup of the ArcGIS Server site (ArcGIS for Server 10.2 or higher required).
 
 This package ships with the [Requests](http://docs.python-requests.org/en/latest/) module to facilitate the Get and Post requests executed by the functions.
 

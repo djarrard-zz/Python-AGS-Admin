@@ -19,10 +19,10 @@ This package ships with the [Requests](http://docs.python-requests.org/en/latest
 ## Instructions and Notes
 
 1. Download the repository ZIP file.
-2. Refer to the Samples page and Function Documentation page for guidance
+2. Refer to the [Samples](https://github.com/djarrard/Python-AGS-Admin/blob/master/SAMPLES.md) page and [Function Documentation](https://github.com/djarrard/Python-AGS-Admin/blob/master/FUNCTION%20DOCUMENTATION.md) page for guidance
 3. Deploy the samples against a development/test server. **Do not execute these scripts against a production server     until they have been fully vetted against atesting-tier server**
 4. Keep in mind that the Requests folder and adminfunctions.py file must reside in the same folder as scripts that use them unless they are copied to the python libraries on the machine or the environment variables are set to look for these libraries in their remote location.
-5. The backupSite function or another site backup method should be incorporated into any script that makes sweeping administrative changes so that it can be recovered should something go wrong.
+5. The [backupSite](https://github.com/djarrard/Python-AGS-Admin/blob/master/FUNCTION%20DOCUMENTATION.md#backup-site-requires-arcgis-for-server-102-and-higher) function or another site backup method should be incorporated into any script that makes sweeping administrative changes so that it can be recovered should something go wrong.
 
 ## Requirements
 

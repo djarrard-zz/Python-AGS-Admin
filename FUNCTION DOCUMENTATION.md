@@ -1,6 +1,6 @@
 # Function Documentation
 
-This is a documentation list of all of the functions defined within the administrateservices.py file included within this package. Please see the samples documentation for practical examples on how these functions can be used.
+This is a documentation list of all of the functions defined within the administrateservices.py file included within this package. Please see the [samples document](https://github.com/djarrard/Python-AGS-Admin/blob/master/SAMPLES.md) for practical examples on how these functions can be used.
 
 
 ## Define Endpoints

@@ -27,7 +27,7 @@ This package ships with the [Requests](http://docs.python-requests.org/en/latest
 ## Requirements
 
 * A network connection between the client machine and the GIS server.
-* A names user on the ArcGIS for Server site with Administrative privileges.
+* A named user on the ArcGIS for Server site with Administrative privileges.
 * A python editor
 
 ## Issues

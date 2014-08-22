@@ -72,7 +72,7 @@ token			|	*String* – A token allowing the user to access the REST endpoint. A 
 
 ####Purpose
 
-Sends an edit request to the specified administrative service URL to update the minimum and maximum number of instance per node values.
+Sends an edit request to the specified administrative service URL to update the minimum and maximum number of instance per node values. Edits requests are not sent if the service is already configured with the minimum and maximum instances setting specified in the parameters. This is done to prevent any unnecessary modifications or restarts.
 
 ####Output
 

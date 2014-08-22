@@ -65,14 +65,17 @@ def updateMinMaxInstance(serviceAdminUrl, token, minInstances, maxInstances):
     requestURL = serviceAdminUrl + "?f=json" + tokenstring
     request = requests.get(requestURL)
     response = json.loads(request.text)
-    response["minInstancesPerNode"] = minInstances
-    response["maxInstancesPerNode"] = maxInstances
-    newjson = json.dumps(response)
-    editURL = serviceAdminUrl + "/edit" + "?f=json" + tokenstring
-    postData = {"service":newjson}
-    request = requests.post(editURL, postData)
-    response = json.loads(request.text)["status"]
-    return "Serviced update result: " + response
+    if response["minInstancesPerNode"] != minInstances or response["maxInstancesPerNode"] != maxInstances:
+        response["minInstancesPerNode"] = minInstances
+        response["maxInstancesPerNode"] = maxInstances
+        newjson = json.dumps(response)
+        editURL = serviceAdminUrl + "/edit" + "?f=json" + tokenstring
+        postData = {"service":newjson}
+        request = requests.post(editURL, postData)
+        response = json.loads(request.text)["status"]
+        return "Service update result: " + response
+    else:
+        return "Service was already configured as desired"
     
 def StartStopDelete(serviceAdminUrl, token, operation):
     if token != "":

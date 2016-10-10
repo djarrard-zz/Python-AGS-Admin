@@ -7,15 +7,15 @@ def defineEndpoints(agsURL):
     base = agsURL.split(r"/rest")[0]
     REST = base + "/rest/services"
     adminAPI = base + "/admin"
-    info = base + "/rest/info" 
-    response = requests.get(info + "?f=json")
+    info = base + "/rest/info"
+    response = requests.get(info + "?f=json", verify=False)
     jsonresponse = json.loads(response.text)
     tokenURL = jsonresponse["authInfo"]["tokenServicesUrl"]
     output = {"REST":REST,"TokenUrl":tokenURL,"Admin":adminAPI}
     return output
 
-def getToken(tokenURL, username, password):
-    token_POSTdata = {'username':username,'password':password,'f':"json"}
+def getToken(tokenURL, username, password, referer):
+    token_POSTdata = {'username':username,'password':password,'f':"json", 'referer':referer}
     token_request = requests.post(tokenURL, token_POSTdata, verify=False)
     token_response = json.loads(token_request.text)
     return token_response
@@ -30,7 +30,7 @@ def getServiceAdminEndpoints(adminURL, token):
     folders = []
     services = []
     serviceURLs = []
-    request = requests.get(crawl_URL)
+    request = requests.get(crawl_URL, verify=False)
     response = json.loads(request.text)
     for item in response["services"]:
         serviceInfo = []
@@ -43,7 +43,7 @@ def getServiceAdminEndpoints(adminURL, token):
             folders.append(folder["folderName"])
     for item in folders:
         url = adminURL +"/services/" + item + "/" + "?f=json" + tokenstring
-        request = requests.get(url)
+        request = requests.get(url, verify=False)
         response = json.loads(request.text)
         for item in response["services"]:
             serviceInfo = []
@@ -63,7 +63,7 @@ def updateMinMaxInstance(serviceAdminUrl, token, minInstances, maxInstances):
     else:
         tokenstring = ""
     requestURL = serviceAdminUrl + "?f=json" + tokenstring
-    request = requests.get(requestURL)
+    request = requests.get(requestURL, verify=False)
     response = json.loads(request.text)
     if response["minInstancesPerNode"] != minInstances or response["maxInstancesPerNode"] != maxInstances:
         response["minInstancesPerNode"] = minInstances
@@ -71,12 +71,12 @@ def updateMinMaxInstance(serviceAdminUrl, token, minInstances, maxInstances):
         newjson = json.dumps(response)
         editURL = serviceAdminUrl + "/edit" + "?f=json" + tokenstring
         postData = {"service":newjson}
-        request = requests.post(editURL, postData)
+        request = requests.post(editURL, postData, verify=False)
         response = json.loads(request.text)["status"]
         return "Service update result: " + response
     else:
         return "Service was already configured as desired"
-    
+
 def StartStopDelete(serviceAdminUrl, token, operation):
     if token != "":
         tokenstring = "&token="+token
@@ -88,7 +88,7 @@ def StartStopDelete(serviceAdminUrl, token, operation):
         requestUrl = serviceAdminUrl + "/stop" + "?f=json" + tokenstring
     elif operation.upper() == "DELETE":
         requestUrl = serviceAdminUrl + "/stop" + "?f=json" +tokenstring
-    request = requests.post(requestUrl)
+    request = requests.post(requestUrl, "", verify=False)
     response = json.loads(request.text)["status"]
     return "Result: " + response
 
@@ -102,16 +102,16 @@ def updateTimeouts(serviceAdminUrl, token, maxWaitTime, maxStartupTime, maxIdleT
     defaultmaxIdleTime = 1800
     defaultmaxUsageTime = 600
     requestURL = serviceAdminUrl + "?f=json" + tokenstring
-    request = requests.get(requestURL)
+    request = requests.get(requestURL, verify=False)
     response = json.loads(request.text)
     if maxWaitTime != "":
         newWaitTime = maxWaitTime
     else:
-        newWaitTime = defaultmaxWaitTime 
+        newWaitTime = defaultmaxWaitTime
     if maxStartupTime != "":
         newStartupTime = maxStartupTime
     else:
-        newStartupTime = defaultmaxStartupTime 
+        newStartupTime = defaultmaxStartupTime
     if maxIdleTime != "":
         newIdleTime = maxIdleTime
     else:
@@ -127,7 +127,7 @@ def updateTimeouts(serviceAdminUrl, token, maxWaitTime, maxStartupTime, maxIdleT
     newjson = json.dumps(response)
     editURL = serviceAdminUrl + "/edit" + "?f=json" + tokenstring
     postData = {"service":newjson}
-    request = requests.post(editURL, postData)
+    request = requests.post(editURL, postData, verify=False)
     response = json.loads(request.text)["status"]
     return "Serviced update result: " + response
 
@@ -137,12 +137,12 @@ def backupSite(adminUrl, token, outputDirectory):
     else:
         tokenstring = ""
     compCheckUrl = adminUrl + "?f=json" + tokenstring
-    compCheckRequest = requests.get(compCheckUrl)
+    compCheckRequest = requests.get(compCheckUrl, verify=False)
     response = json.loads(compCheckRequest.text)
     if response["currentVersion"] >= 10.2:
         bkpUrl = adminUrl + "/exportSite"
         bkpPostData = {"f":"json","location":outputDirectory,"token":token}
-        request = requests.post(bkpUrl, bkpPostData)
+        request = requests.post(bkpUrl, bkpPostData, verify=False)
         response = json.loads(request.text)
         if response["status"] == "success":
             return {'outcome':"success",'messages':response["location"]}
